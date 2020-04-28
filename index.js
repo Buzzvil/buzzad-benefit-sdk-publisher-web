@@ -57,8 +57,6 @@ function log(message, bad) {
 
   BuzzAdBenefit.init(config);
 
-  var ads = [];
-
   function loadAd() {
     setLoginUi(BuzzAdBenefit.instance.core.userProfile.userId);
     // Setup Ad Placement
@@ -66,15 +64,13 @@ function log(message, bad) {
       unitId: {
         android: '232661007718829',
         ios: '131298264757814',
-      },
-      count: 3
+      }
     }
 
     BuzzAdBenefit.loadAd(loadConfig)
-      .then(function (nativeAds) {
+      .then(function (nativeAd) {
         log('ON AD LOADED: An ad is loaded.');
-        ads = ads.concat(nativeAds);
-        populateAd(ads.shift());
+        populateAd(nativeAd);
       }).catch(function(error) {
         log('ON LOAD ERROR: An error is detected: ' + error.message, true);
       });
@@ -85,11 +81,7 @@ function log(message, bad) {
   }
 
   function reloadAd() {
-    if (ads.length) {
-      populateAd(ads.shift());
-    } else {
-      loadAd();
-    }
+    loadAd();
   }
 
   window.reloadAd = reloadAd;
