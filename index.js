@@ -73,6 +73,7 @@ function log(message, bad) {
         populateAd(nativeAd);
       }).catch(function(error) {
         log('ON LOAD ERROR: An error is detected: ' + error.message, true);
+        hideAd();
       });
   }
 
@@ -114,6 +115,11 @@ function log(message, bad) {
     rootView.getElementsByClassName('body')[0].innerHTML = nativeAd.description;
 
     updateCtaView(rootView.getElementsByClassName('cta')[0], nativeAd);
+  }
+
+  function hideAd() {
+    const rootView = document.getElementById('nativeAd');
+    rootView.style.display = 'none';
   }
 
   function populateAd(nativeAd) {
