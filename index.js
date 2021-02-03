@@ -72,7 +72,11 @@ function log(message, bad) {
         log('ON AD LOADED: An ad is loaded.');
         populateAd(nativeAd);
       }, function(error) {
-        log('ON LOAD ERROR: An error is detected: ' + error.message, true);
+        if (error.message === 'EMPTY_RESPONSE') {
+          log('ON LOAD ERROR: NO FILL', true);
+        } else {
+          log('ON LOAD ERROR: An error is detected: ' + error.code + ', ' + error.message, true);
+        }
         hideAd();
       });
   }
